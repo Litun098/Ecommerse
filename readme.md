@@ -1,0 +1,1 @@
+npm i express body-parser nodemon sequelize sequelize-cli mysql2 
