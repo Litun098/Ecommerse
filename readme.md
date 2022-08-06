@@ -1,1 +1,5 @@
-npm i express body-parser nodemon sequelize sequelize-cli mysql2 dotenv
+#install required packages
+
+npm i express body-parser nodemon mysql2 dotenv
+
+npm i sequelize sequelize-cli
