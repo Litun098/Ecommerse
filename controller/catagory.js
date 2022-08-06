@@ -1,4 +1,4 @@
-const { Categories } = require('../models')
+const { Catagories } = require('../models')
 
 async function createCategory(req, res){
 	const data = req.body;
@@ -11,7 +11,7 @@ async function createCategory(req, res){
 	const description = data.description;
 
 	try{
-		const result = await Categories.create({name, description})
+		const result = await Catagories.create({name, description})
 		console.log('result', result);
 		res.send({msg : 'Category has been created'})
 	}catch(err){
@@ -25,7 +25,7 @@ async function createCategory(req, res){
 
 async function getAllCategory(req, res){
 	try{
-		const result = await Categories.findAll()
+		const result = await Catagories.findAll()
 		res.send(result)
 	}catch(err){
 		console.log('err in getting categories', err)
@@ -37,7 +37,7 @@ async function getCategoryOnId(req,res){
 	const categoryId = req.params.id;
 
 	try{
-		const result = await Categories.findOne({
+		const result = await Catagories.findOne({
 			where : {
 				id : categoryId
 			}
@@ -53,7 +53,7 @@ async function getCategoryOnId(req,res){
 async function updateCategory(req,res){
 	const categoryId = req.params.id;
 	try{
-		const result = await Categories.findOne({
+		const result = await Catagories.findOne({
 			where : {
 				id : categoryId
 			}
@@ -79,7 +79,7 @@ async function updateCategory(req,res){
 async function deleteCategory(req,res){
 	const categoryId = req.params.id;
 	try{
-		const result = await Categories.destroy({
+		const result = await Catagories.destroy({
 			where :{
 				id: categoryId
 			}
