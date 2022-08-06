@@ -2,18 +2,20 @@ const express = require('express');
 const {sequelize,Catagories} = require('./models');
 require('dotenv').config();
 const {serverPort} = require('./config/config.server');
-const app = express();
+const routes = require('./routes');
 
-app.get('/', async (req,res)=>{
-    res.send("Hello world")
-})
+
+
+const app = express();
+app.use(express.json())
+app.use(routes)
 
 
 app.listen(serverPort, async ()=>{
-    // await Catagories.sync({force:true})
-    await sequelize.authenticate();
+    await Catagories.sync({force:true})
+    // await sequelize.authenticate();
     await init()
-    console.log('Ecommerse is running...')
+    console.log('Ecommerse is running at '+serverPort)
 })
 
 async function init(){
