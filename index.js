@@ -12,5 +12,25 @@ app.get('/', async (req,res)=>{
 app.listen(serverPort, async ()=>{
     // await Catagories.sync({force:true})
     await sequelize.authenticate();
+    await init()
     console.log('Ecommerse is running...')
 })
+
+async function init(){
+    try{
+    await Catagories.sync({force:true})
+
+    const defaultCatagories =[{
+        name:"Mobile",
+        description:'About Mobiles'
+    },{
+        name:"Washing Machine",
+        description:"About Washing machine"
+    }]
+
+    const result = await Catagories.bulkCreate(defaultCatagories);
+    console.log(result)
+    }catch(err){
+        console.log(err);
+    }
+}

@@ -9,3 +9,4 @@ npx sequelize init
 
 npx sequelize db:create
 
+npx sequelize model:generate --name Catagories --attributes name:text,description:text
