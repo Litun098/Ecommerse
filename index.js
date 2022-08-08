@@ -12,7 +12,12 @@ app.use(routes)
 
 
 app.listen(serverPort, async () => {
-    // await Catagories.sync({force:true})
+    // To sync model wise
+    // await Catagories.sync({force:true});
+
+    // To sync all models
+    // await sequelize.sync({force:true});
+
     await sequelize.authenticate();
     // await init()
     console.log('Ecommerse is running at ' + serverPort)
