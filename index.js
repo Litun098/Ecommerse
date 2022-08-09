@@ -12,6 +12,8 @@ app.use(routes)
 
 
 app.listen(serverPort, async () => {
+    console.log('Ecommerse is running at ' + serverPort)
+
     // To sync model wise
     // await Catagories.sync({force:true});
 
@@ -20,7 +22,6 @@ app.listen(serverPort, async () => {
 
     await sequelize.authenticate();
     // await init()
-    console.log('Ecommerse is running at ' + serverPort)
 })
 
 // async function init() {
