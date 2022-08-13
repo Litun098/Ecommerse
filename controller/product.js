@@ -1,28 +1,16 @@
-const { Products } = require('../models')
+const { Products, Sequelize } = require('../models')
 
 async function createProduct(req, res){
     const data = req.body;
 
-    if(!(data.name)){
-        res.status(400).send({mag:'Name is required'});
-    }
     const name = data.name;
-    if(!(data.cost)){
-        res.status(400).send({msg:"Cost is required"});
-    }
     const cost = data.cost;
-    
-    if(!(data.description)){
-        res.status(400).send({msg:"Cost is required"});
-    }
     const description = data.description;
-    if(!(data.quantity)){
-        res.status(400).send({msg:"Quantity is required."});
-    }
     const quantity = data.quantity;
+	const CatagoryId = data.CatagoryId;
 
     try{
-        const result = await Products.create({name,cost,description,quantity});
+        const result = await Products.create({name,cost,description,quantity,CatagoryId});
 
         res.status(200).send({
             msg:"Product added successfully.",
@@ -106,10 +94,74 @@ async function deleteProduct(req,res){
 	}
 }
 
+async function filteredProduct(req,res){
+	const CatagoryId = req.query.CatagoryId;
+	const name = req.query.name;
+	const minCost = req.query.minCost;
+	const maxCost = req.query.maxCost;
+
+	if(CatagoryId){
+		const result = await Products.findAll({
+			where:{
+				CatagoryId:CatagoryId
+			}
+		})
+		res.status(200).send(result);
+	}
+
+
+	if(name){
+		const result = await Products.findAll({
+			where:{
+				name:name
+			}
+		})
+		res.status(200).send(result);
+	}
+
+	
+	if(minCost && maxCost){
+		const result = await Products.findAll({
+			where:{
+				cost:{
+					[Sequelize.Op.gte]:minCost,
+					[Sequelize.Op.lte]:maxCost
+				}
+			}
+		})
+		res.status(200).send(result)
+	}
+	else if(minCost){
+		const result = await Products.findAll({
+			where:{
+				cost:{
+					[Sequelize.Op.gte] : minCost
+				}
+			}
+		})
+		res.status(200).send(result);
+	}
+	else if(maxCost){
+		const result = await Products.findAll({
+			where:{
+				cost:{
+					[Sequelize.Op.lte] : maxCost
+				}
+			}
+		})
+		res.status(200).send(result);
+	}
+	else{
+		const result = await Products.findAll()
+		res.send(result);
+	}
+}
+
 module.exports = {
 	createProduct,
 	getAllProduct,
 	getProductOnId,
 	updateProduct,
-	deleteProduct
+	deleteProduct,
+	filteredProduct
 }
