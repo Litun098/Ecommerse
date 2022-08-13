@@ -1,5 +1,5 @@
 const express = require('express');
-const { sequelize, Catagories } = require('./models');
+const { sequelize, Catagories,Products } = require('./models');
 require('dotenv').config();
 const { serverPort } = require('./config/config.server');
 const routes = require('./routes');
@@ -14,31 +14,65 @@ app.use(routes)
 app.listen(serverPort, async () => {
     console.log('Ecommerse is running at ' + serverPort)
 
-    // To sync model wise
-    // await Catagories.sync({force:true});
-
+    
     // To sync all models
     // await sequelize.sync({force:true});
 
+
+    // To sync model wise
+    // await Catagories.sync({force:true});
+    // await Products.sync({force:true});
+
     await sequelize.authenticate();
-    // await init()
+    await init()
 })
 
-// async function init() {
-//     try {
-//         await Catagories.sync({ force: true })
+async function init(){
+	try{
+		await sequelize.sync({force:true})
 
-//         const defaultCatagories = [{
-//             name: "Mobile",
-//             description: 'About Mobiles'
-//         }, {
-//             name: "Washing Machine",
-//             description: "About Washing machine"
-//         }]
+		const defaultProducts = [
+		{
+		    "description":"Nyka best products",
+		    "name" :"MakeUP Kit",
+		    "cost": 870,
+		    "quantity": 20,
+			"CatagoryId": 1
+		},
+		{
+    		"description":"Best fragnance",
+		    "name" :"Fogg",
+		    "cost": 280,
+		    "quantity": 20,
+			"CatagoryId": 2
+		},
+		{
+    		"description":"Best for summer holidays",
+		    "name" :"Summer Clothes",
+		    "cost": 1200,
+		    "quantity": 20,
+			"CatagoryId": 3
+		}
+]
 
-//         const result = await Catagories.bulkCreate(defaultCatagories);
-//         console.log(result)
-//     } catch (err) {
-//         console.log(err);
-//     }
-// }
+		const defaultCategories = [
+		{
+			name : 'Beauty',
+			description: 'All beauty Products'
+		},
+		{
+			name: 'Fragnance',
+			description: 'All Fragnance Products'
+		},
+		{
+			name: 'Clothes',
+			description: 'All types of Clothes'
+		}
+		]
+		await Catagories.bulkCreate(defaultCategories)
+		await Products.bulkCreate(defaultProducts)
+	}
+	catch(err){
+		console.log(err)
+	}
+}
