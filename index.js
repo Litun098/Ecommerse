@@ -1,5 +1,5 @@
 const express = require('express');
-const { sequelize, Catagories,Products } = require('./models');
+const { sequelize, Catagories,Products,User,Role } = require('./models');
 require('dotenv').config();
 const { serverPort } = require('./config/config.server');
 const routes = require('./routes');
@@ -23,6 +23,9 @@ app.listen(serverPort, async () => {
     // await Catagories.sync({force:true});
     // await Products.sync({force:true});
 
+    // await User.sync({force:true});
+    // await Role.sync({force:true});
+    
     await sequelize.authenticate();
     // await init()
 })
