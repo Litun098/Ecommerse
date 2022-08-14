@@ -1,5 +1,6 @@
 const express = require('express')
 const {checkNameForCatagory,validateProduct} = require('../middleware')
+const {authRoutes} = require('./auth');
 const {
     createCategory, 
     getAllCategory,
@@ -37,4 +38,7 @@ routes.put('/ecomm/api/v1/product/:id', updateProduct)
 routes.delete('/ecomm/api/v1/product/:id', deleteProduct)
 
 
-module.exports = routes
+module.exports ={ 
+    routes,
+    authRoutes
+}

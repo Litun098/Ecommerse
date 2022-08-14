@@ -40,3 +40,5 @@ Update API/ PUT localhost:2500/ecomm/api/v1/products/2
 { "name" : "bank", "description":"about bank & payment", "quantity": 24, "cost": 450 }
 
 DELETE API: localhost:2500/ecomm/api/v1/products/2
+
+npx i bcrypt
