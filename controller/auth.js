@@ -5,9 +5,22 @@ async function signup(req, res){
     const email = req.body.email;
     const password = bcrypt.hashSync(req.body.password, 10);
 
-    console.log(password)
+    if(!username){
+        res.status(400).send({ msg:"user name required."})
+        return;
+    }
+    if(!email){
+        res.status(400).send({ msg:"email required."})
+        return;
+    }
+    if(!password){
+        res.status(400).send({ msg:"passif(!password required."})
+        return;
+    }
+
 
     try{
+
         const user = await User.create({
             username,
             email,
