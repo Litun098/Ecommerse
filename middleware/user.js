@@ -1,4 +1,4 @@
-const {User} = require('../models')
+const {User,Role,Sequelize} = require('../models')
 
 async function checkduplicateUsernameAndEmail(req, res,next){
     if(req.body.username){
@@ -29,27 +29,40 @@ async function checkduplicateUsernameAndEmail(req, res,next){
     next();
 }
 
-// async function checkRoles(req,res,next){
-//     if(req.body.role){
-//         const roles = req.body.role;
-//         let flag = true;
-//         const availRoles = await roles.findAll();
-//         for(let i = 0;i<availRoles.length;i++){
-//             for(let j = 0;j<roles.length;j++){
-//                 if(roles[j]!== availRoles[i].dataValues.id){
-//                     flag = false;
-//                 }
-//             }
-//         }
-//         if(flag){
-//             next();
-//         }else{
-//             res.status(400).send({msg:"Role is does not exists."})
-//             return;
-//         }
-//     }    
-// }
+async function checkRoles(req,res,next){
+    if(req.body.role){
+        const roles = req.body.role;
+        let flag = true;
+        const findRoleFromDB = await Role.findAll({
+			attributes:['id']
+		});
+        
+		if(findRoleFromDB.length > 0){
+			const storeRoles = []
+
+			for(let i = 0 ; i<findRoleFromDB.length; i++){
+				storeRoles.push(findRoleFromDB[i].dataValues.id)
+			}
+			for(let i = 0; i< roles.length;i++){
+				const result = storeRoles.includes(roles[i])
+				if(!result){
+					flag = false
+					break;
+				}
+			}
+			if(flag){
+				next()
+			}else{
+				res.status(400).send({msg :'Role id does not exist'})
+				return;
+			}
+		}else{
+			res.status(500).send({msg: 'Internal server error, Role does not found'});
+			return;
+		}
+    }    
+}
 module.exports = {
     checkduplicateUsernameAndEmail,
-    // checkRoles
+    checkRoles
 }
