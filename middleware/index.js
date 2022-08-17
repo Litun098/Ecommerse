@@ -1,8 +1,10 @@
 const {checkNameForCatagory} = require('./catagory')
 const {validateProduct} = require('./product')
-const {checkduplicateUsernameAndEmail} = require('./user')
+const {checkduplicateUsernameAndEmail,checkRoles,verifyToken} = require('./user')
 module.exports = {
     validateProduct,
     checkNameForCatagory,
-    checkduplicateUsernameAndEmail
+    checkduplicateUsernameAndEmail,
+    checkRoles,
+    verifyToken
 }
