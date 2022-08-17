@@ -1,5 +1,8 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const {User} = require('../models');
+
+
 async function signup(req, res){
     const username = req.body.username;
     const email = req.body.email;
@@ -14,7 +17,7 @@ async function signup(req, res){
         return;
     }
     if(!password){
-        res.status(400).send({ msg:"passif(!password required."})
+        res.status(400).send({ msg:"password required."})
         return;
     }
 
@@ -27,13 +30,16 @@ async function signup(req, res){
             password
         })
 
-        if(req.body.roles){
-            const roles = req.body.roles;
-            const result = await user.setRoles( roles);
+        if(req.body.role){
+            const role = req.body.role;
+            const result = await user.setRoles(role);
+            res.send({msg:"User defined role",result})
             console.log("User defined role: ",result)
-        }else{
+        }
+        else{
             const result = await user.setRoles([1]);
-            console.log("Default role: ",result)
+            res.send({msg:"Default role",result})
+            // console.log("Default role: ",result)
         }
 
         res.status(200).send({msg:"User has been created successfully."});
@@ -44,6 +50,52 @@ async function signup(req, res){
 
 }
 
+async function signin(req,res){
+    const username = req.body.username;
+    const password = req.body.password;
+
+    try{
+        const user = await User.findOne({
+            where:{
+                username:username
+            }
+        })
+
+        if(user){
+            const validatePassword = bcrypt.compareSync(password,user.password)
+            if(!validatePassword){
+                res.status(400).send({msg:"Username or password incorrect"});
+            } 
+            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY, {
+                expiresIn: '24h'
+            })
+            const authorities = [];
+            const role = await user.getRoles();
+
+            for(let i = 0;i<role.length;i++){
+                authorities.push(role[i].name);
+            }
+
+            const finalUser = {
+                id:user.id,
+                name:user.name,
+                email:user.email,
+                username:user.username,
+                token:token,
+                authorities:authorities
+            }
+
+            res.send(finalUser);
+        }else{
+            res.status(400).send({msg:'username or password is incorrect'})
+        }
+    }catch(err){
+        res.status(500).send({msg:'internal server error'})
+        console.log(err)
+    }
+}
+
 module.exports = {
-    signup
+    signup,
+    signin
 }

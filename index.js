@@ -1,7 +1,7 @@
+const { serverPort } = require('./config/config.server');
 const express = require('express');
 const { sequelize, Catagories, Products, User, Role } = require('./models');
 require('dotenv').config();
-const { serverPort } = require('./config/config.server');
 const {routes,authRoutes} = require('./routes');
 
 
