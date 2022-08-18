@@ -25,6 +25,10 @@ const {
     filteredProduct
 } = require('../controller/product')
 
+const{
+    cartRoutes
+} = require('./cart')
+
 const routes = express.Router()
 
 
@@ -46,5 +50,6 @@ routes.delete('/ecomm/api/v1/product/:id',verifyToken,isAdmin, deleteProduct)
 
 module.exports ={ 
     routes,
-    authRoutes
+    authRoutes,
+    cartRoutes
 }

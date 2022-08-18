@@ -2,7 +2,7 @@ const { serverPort } = require('./config/config.server');
 const express = require('express');
 const { sequelize, Catagories, Products, User, Role } = require('./models');
 require('dotenv').config();
-const {routes,authRoutes} = require('./routes');
+const {routes,authRoutes, cartRoutes} = require('./routes');
 
 
 
@@ -10,6 +10,7 @@ const app = express();
 app.use(express.json())
 app.use(authRoutes);
 app.use(routes);
+app.use(cartRoutes)
 
 app.listen(serverPort, async () => {
     console.log('Ecommerse is running at ' + serverPort)
