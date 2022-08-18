@@ -1,5 +1,11 @@
 const express = require('express')
-const {checkNameForCatagory,validateProduct,verifyToken} = require('../middleware')
+const {
+    checkNameForCatagory,
+    validateProduct,
+    verifyToken,
+    isAdmin
+} = require('../middleware')
+
 const {authRoutes} = require('./auth');
 const {
     createCategory, 
@@ -22,20 +28,20 @@ const {
 const routes = express.Router()
 
 
-routes.post('/ecomm/api/v1/categories',checkNameForCatagory, createCategory)
+routes.post('/ecomm/api/v1/categories',checkNameForCatagory,verifyToken,isAdmin, createCategory)
 routes.get('/ecomm/api/v1/categories',verifyToken,getAllCategory)
 routes.get('/ecomm/api/v1/categories/:id',verifyToken, getCategoryOnId)
-routes.put('/ecomm/api/v1/categories/:id', updateCategory)
-routes.delete('/ecomm/api/v1/categories/:id', deleteCategory)
+routes.put('/ecomm/api/v1/categories/:id',verifyToken,isAdmin, updateCategory)
+routes.delete('/ecomm/api/v1/categories/:id',verifyToken,isAdmin, deleteCategory)
 
 
 
-routes.post('/ecomm/api/v1/product',[validateProduct],createProduct)
-routes.get('/ecomm/api/v1/product',verifyToken, getAllProduct)
+routes.post('/ecomm/api/v1/product',[validateProduct],verifyToken,isAdmin,createProduct)
+routes.get('/ecomm/api/v1/product', getAllProduct)
 routes.get('/ecomm/api/v1/product/filter', filteredProduct)
 routes.get('/ecomm/api/v1/product/:id', getProductOnId)
-routes.put('/ecomm/api/v1/product/:id', updateProduct)
-routes.delete('/ecomm/api/v1/product/:id', deleteProduct)
+routes.put('/ecomm/api/v1/product/:id',verifyToken,isAdmin, updateProduct)
+routes.delete('/ecomm/api/v1/product/:id',verifyToken,isAdmin, deleteProduct)
 
 
 module.exports ={ 

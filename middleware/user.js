@@ -1,5 +1,5 @@
 const { User, Role, Sequelize } = require('../models')
-const jwt = require('jsonwebtoken');
+
 
 async function checkduplicateUsernameAndEmail(req, res, next) {
     if (req.body.username) {
@@ -66,29 +66,7 @@ async function checkRoles(req, res, next) {
 
 
 
-async function verifyToken(req, res, next) {
-    const token = req.headers['access-token'];
-
-    if (token) {
-        try {
-            const result = jwt.verify(token, process.env.JWT_SECRET_KEY)
-
-            if (result.id) {
-                next();
-            } else {
-                res.status(400).send({ msg: 'Token has expired. Please re login' })
-                return;
-            }
-        } catch (err) {
-            res.status(400).send({msg:"Token has expired"})
-        }
-    } else {
-        res.status(400).send({ msg: 'auth token is missing.' })
-        return;
-    }
-}
 module.exports = {
     checkduplicateUsernameAndEmail,
-    checkRoles,
-    verifyToken
+    checkRoles
 }
