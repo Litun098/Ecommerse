@@ -28,64 +28,64 @@ app.listen(serverPort, async () => {
     // await Role.sync({force:true});
 
     await sequelize.authenticate();
-    // await init()
+    await init()
 })
 
-// async function init() {
-//     try {
-//         await sequelize.sync({ force: true })
+async function init() {
+    try {
+        await sequelize.sync({ force: true })
 
-//         const defaultProducts = [
-//             {
-//                 "description": "Nyka best products",
-//                 "name": "MakeUP Kit",
-//                 "cost": 870,
-//                 "quantity": 20,
-//                 "CatagoryId": 1
-//             },
-//             {
-//                 "description": "Best fragnance",
-//                 "name": "Fogg",
-//                 "cost": 280,
-//                 "quantity": 20,
-//                 "CatagoryId": 2
-//             },
-//             {
-//                 "description": "Best for summer holidays",
-//                 "name": "Summer Clothes",
-//                 "cost": 1200,
-//                 "quantity": 20,
-//                 "CatagoryId": 3
-//             }
-//         ]
+        const defaultProducts = [
+            {
+                "description": "Nyka best products",
+                "name": "MakeUP Kit",
+                "cost": 870,
+                "quantity": 20,
+                "CatagoryId": 1
+            },
+            {
+                "description": "Best fragnance",
+                "name": "Fogg",
+                "cost": 280,
+                "quantity": 20,
+                "CatagoryId": 2
+            },
+            {
+                "description": "Best for summer holidays",
+                "name": "Summer Clothes",
+                "cost": 1200,
+                "quantity": 20,
+                "CatagoryId": 3
+            }
+        ]
 
-//         const defaultCategories = [
-//             {
-//                 name: 'Beauty',
-//                 description: 'All beauty Products'
-//             },
-//             {
-//                 name: 'Fragnance',
-//                 description: 'All Fragnance Products'
-//             },
-//             {
-//                 name: 'Clothes',
-//                 description: 'All types of Clothes'
-//             }
-//         ]
-//         const defaultRoles = [
-//             {
-//                 name: 'User'
-//             },
-//             {
-//                 name: 'Admin'
-//             }
-//         ]
-//         await Catagories.bulkCreate(defaultCategories)
-//         await Products.bulkCreate(defaultProducts)
-//         await Role.bulkCreate(defaultRoles)
-//     }
-//     catch (err) {
-//         console.log(err)
-//     }
-// }
+        const defaultCategories = [
+            {
+                name: 'Beauty',
+                description: 'All beauty Products'
+            },
+            {
+                name: 'Fragnance',
+                description: 'All Fragnance Products'
+            },
+            {
+                name: 'Clothes',
+                description: 'All types of Clothes'
+            }
+        ]
+        const defaultRoles = [
+            {
+                name: 'User'
+            },
+            {
+                name: 'Admin'
+            }
+        ]
+        await Catagories.bulkCreate(defaultCategories)
+        await Products.bulkCreate(defaultProducts)
+        await Role.bulkCreate(defaultRoles)
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
