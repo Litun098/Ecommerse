@@ -1,3 +1,8 @@
 .env
 
 node_modules
+
+
+https://sample-ecommerse.herokuapp.com/ecomm/api/v1/product
+
+https://sample-ecommerse.herokuapp.com/ecomm/api/v1/auth/signup

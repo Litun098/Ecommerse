@@ -66,7 +66,7 @@ async function signin(req,res){
             if(!validatePassword){
                 res.status(400).send({msg:"Username or password incorrect"});
             } 
-            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY, {
+            const token = jwt.sign({ id: user.id },'thisissecretkey', {
                 expiresIn: '24h'
             })
             const authorities = [];
