@@ -14,10 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "dibyakanta",
+    "password": "dibya@ecommerse",
+    "database": "ecommerse_db",
+    "host": "db4free.net",
     "dialect": "mysql"
   }
 }
