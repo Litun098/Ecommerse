@@ -8,7 +8,7 @@ async function verifyToken(req, res, next) {
 
     if (token) {
         try {
-            const result = jwt.verify(token,'secret_key')
+            const result = jwt.verify(token,'secret-key')
 
             if (result) {
                 req.userId = result.id
