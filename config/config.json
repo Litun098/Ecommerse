@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
+    "username": "dibyakanta",
+    "password": "dibya@ecommerse",
     "database": "ecommerse_db",
-    "host": "127.0.0.1",
+    "host": "db4free.net",
     "dialect": "mysql"
   },
   "test": {
@@ -14,7 +14,7 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
+    "username": "",
     "password": null,
     "database": "database_production",
     "host": "127.0.0.1",
