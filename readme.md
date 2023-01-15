@@ -1,21 +1,19 @@
-#install required packages
+# Ecommerce API
 
-npm i express body-parser nodemon mysql2 dotenv
+#### install required packages
 
-npm i sequelize sequelize-cli
-
-
-npx sequelize init
-
-npx sequelize db:create
-
+```bash
+    npm i
+``` 
 Create Product Catagories
-npx sequelize model:generate --name Catagories --attributes name:text,description:text
-
+```bash
+    npx sequelize model:generate --name Catagories --attributes name:text,description:text
+```
 
 Create Product table
-npx sequelize model:generate --name Products --attributes name:text,cost:integer,description:text,quantity:integer
-
+```bash
+    npx sequelize model:generate --name Products --attributes name:text,cost:integer,description:text,quantity:integer
+```
 
 Post API: localhost:2500/ecomm/api/v1/categories { "description":"about Fashion", "name" :"Fashion" }
 
@@ -40,5 +38,3 @@ Update API/ PUT localhost:2500/ecomm/api/v1/products/2
 { "name" : "bank", "description":"about bank & payment", "quantity": 24, "cost": 450 }
 
 DELETE API: localhost:2500/ecomm/api/v1/products/2
-
-npx i bcrypt
